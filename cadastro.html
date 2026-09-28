@@ -1,18 +1,44 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Cadastro de Aluno</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>body{margin:0;background:#080b0d;color:#f2f2f2;font-family:Arial}.w{max-width:460px;margin:60px auto;padding:24px}.c{background:#101417;border:1px solid #252b30;border-radius:16px;padding:24px}input{width:100%;box-sizing:border-box;background:#0b0f11;border:1px solid #30373d;color:#fff;padding:13px;border-radius:9px;margin:7px 0}button{width:100%;background:#a86b0c;color:#fff;border:1px solid #f5a623;padding:13px;border-radius:9px;font-weight:bold;margin-top:10px}a{color:#f5a623}.m{color:#9aa2a9}</style></head><body><div class="w"><div class="c"><h1>Cadastro de Aluno</h1><p class="m">Crie sua conta para entrar na plataforma PISTOL SURVIVEL.</p><input id="name" placeholder="Nome completo"><input id="email" type="email" placeholder="E-mail"><input id="pass" type="password" placeholder="Senha (mínimo 6 caracteres)"><button id="go" type="button" onclick="criarConta()">CRIAR MINHA CONTA</button><p id="msg"></p><a href="/login.html">Já tenho conta</a></div></div><script>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cadastro de Aluno — PISTOL SURVIVEL</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#252016,#080b0d 60%);color:#f2f2f2;font:15px Arial,sans-serif;min-height:100vh}.w{max-width:820px;margin:35px auto;padding:18px}.c{background:#101417;border:1px solid #36332b;border-radius:20px;padding:30px;box-shadow:0 20px 60px #0008}.brand{color:#f5a623;letter-spacing:3px;font-size:12px;font-weight:800}h1{font-size:30px;margin:12px 0}h2{font-size:17px;color:#f5a623;margin:28px 0 13px;border-bottom:1px solid #30363a;padding-bottom:9px}.muted{color:#a8afb4;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:flex;flex-direction:column;gap:6px}.full{grid-column:1/-1}label{color:#d5d9dc;font-size:13px}input{width:100%;background:#0b0f11;border:1px solid #394047;color:#fff;padding:13px;border-radius:9px;outline:none}input:focus{border-color:#f5a623;box-shadow:0 0 0 2px #f5a62322}button{width:100%;background:#b97910;color:#080b0d;border:1px solid #f5a623;padding:15px;border-radius:10px;font-weight:800;cursor:pointer;margin-top:22px;font-size:15px}button:disabled{opacity:.65;cursor:wait}a{color:#f5a623}.m{margin:14px 0;min-height:20px}.small{font-size:12px;color:#a8afb4;line-height:1.5}.req{color:#f5a623}@media(max-width:600px){.grid{grid-template-columns:1fr}.c{padding:19px}.w{margin:12px auto}h1{font-size:25px}}
+</style></head><body><main class="w"><section class="c"><div class="brand">PISTOL SURVIVEL · EDIÇÃO PREMIUM</div><h1>Cadastro de aluno</h1><p class="muted">Preencha seus dados para criar seu acesso à plataforma. Campos com <span class="req">*</span> são obrigatórios.</p>
+<form id="registration" onsubmit="criarConta(event)">
+<h2>Dados pessoais</h2><div class="grid">
+<div class="field full"><label for="name">Nome completo <span class="req">*</span></label><input id="name" autocomplete="name" required minlength="3"></div>
+<div class="field"><label for="email">E-mail <span class="req">*</span></label><input id="email" type="email" autocomplete="email" required></div>
+<div class="field"><label for="phone">Telefone / WhatsApp <span class="req">*</span></label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(27) 99999-9999" required></div>
+<div class="field"><label for="birth_date">Data de nascimento (opcional)</label><input id="birth_date" type="date" autocomplete="bday"></div>
+<div class="field"><label for="pass">Senha <span class="req">*</span></label><input id="pass" type="password" autocomplete="new-password" minlength="6" required placeholder="Mínimo de 6 caracteres"></div>
+</div><h2>Endereço</h2><div class="grid">
+<div class="field"><label for="postal_code">CEP <span class="req">*</span></label><input id="postal_code" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="00000-000" required></div>
+<div class="field"><label for="state">Estado (UF) <span class="req">*</span></label><input id="state" maxlength="2" autocomplete="address-level1" placeholder="ES" required></div>
+<div class="field full"><label for="street">Rua / Avenida <span class="req">*</span></label><input id="street" autocomplete="address-line1" required></div>
+<div class="field"><label for="address_number">Número <span class="req">*</span></label><input id="address_number" required></div>
+<div class="field"><label for="address_complement">Complemento (opcional)</label><input id="address_complement" autocomplete="address-line2" placeholder="Apartamento, bloco..."></div>
+<div class="field"><label for="neighborhood">Bairro <span class="req">*</span></label><input id="neighborhood" required></div>
+<div class="field"><label for="city">Cidade <span class="req">*</span></label><input id="city" autocomplete="address-level2" required></div>
+</div>
+<p class="small">Os dados informados serão usados para administrar seu cadastro e acesso ao curso. Não informe documentos ou informações sensíveis nos campos livres.</p>
+<button id="go" type="submit">CRIAR MINHA CONTA</button><p id="msg" class="m" role="status" aria-live="polite"></p>
+</form><a href="/login.html">Já tenho conta — entrar</a></section></main>
+<script>
 const s=supabase.createClient("https://scoimbbrklznkbmbncsg.supabase.co","sb_publishable_yMe73rPGgLDPTgSsaHIBeA_LTeL7bp0");
-const nameEl=document.getElementById("name"),emailEl=document.getElementById("email"),passEl=document.getElementById("pass"),goEl=document.getElementById("go"),msgEl=document.getElementById("msg");
-async function criarConta(){
- const n=nameEl.value.trim(),e=emailEl.value.trim(),p=passEl.value;
- if(n.length<3){msgEl.textContent="Informe seu nome completo.";return}
- if(!e||!emailEl.validity.valid){msgEl.textContent="Informe um e-mail válido.";return}
- if(p.length<6){msgEl.textContent="A senha precisa ter pelo menos 6 caracteres.";return}
- goEl.disabled=true;msgEl.textContent="Criando conta...";
+const el=id=>document.getElementById(id);
+async function criarConta(event){
+ event.preventDefault();
+ const form=el("registration"),msg=el("msg"),btn=el("go");
+ if(!form.reportValidity())return;
+ const data={full_name:el("name").value.trim(),phone:el("phone").value.trim(),birth_date:el("birth_date").value,postal_code:el("postal_code").value.trim(),state:el("state").value.trim().toUpperCase(),street:el("street").value.trim(),address_number:el("address_number").value.trim(),address_complement:el("address_complement").value.trim(),neighborhood:el("neighborhood").value.trim(),city:el("city").value.trim()};
+ const email=el("email").value.trim(),password=el("pass").value;
+ if(!/^\d{5}-?\d{3}$/.test(data.postal_code)){msg.textContent="Informe um CEP válido com 8 números.";return}
+ if(!/^[A-Z]{2}$/.test(data.state)){msg.textContent="Informe a UF com duas letras (ex.: ES).";return}
+ if(data.phone.replace(/\D/g,"").length<10){msg.textContent="Informe um telefone com DDD.";return}
+ btn.disabled=true;msg.textContent="Criando sua conta...";
  try{
-  const r=await s.auth.signUp({email:e,password:p,options:{data:{full_name:n},emailRedirectTo:"https://pistol-survivel-premium.onrender.com/login.html"}});
-  if(r.error){msgEl.textContent="Não foi possível criar a conta: "+r.error.message;return}
-  msgEl.textContent=r.data.session?"Conta criada com sucesso. Redirecionando...":"Conta criada. Verifique seu e-mail para confirmar o cadastro.";
-  if(r.data.session)setTimeout(()=>location.href="/",900);
- }catch(err){msgEl.textContent="Falha ao criar conta. Tente novamente."}
- finally{goEl.disabled=false}
+  const r=await s.auth.signUp({email,password,options:{data,emailRedirectTo:"https://pistol-survivel-premium.onrender.com/login.html"}});
+  if(r.error){msg.textContent="Não foi possível concluir o cadastro: "+r.error.message;return}
+  msg.textContent=r.data.session?"Cadastro concluído! Redirecionando...":"Cadastro enviado. Confira seu e-mail para confirmar a conta, caso seja solicitado.";
+  if(r.data.session)setTimeout(()=>location.href="/",1200);
+ }catch(err){msg.textContent="Erro de conexão ao criar conta. Tente novamente."}
+ finally{btn.disabled=false}
 }
 </script></body></html>
