@@ -1,5 +1,5 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cadastro de Aluno — PISTOL SURVIVEL</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#252016,#080b0d 60%);color:#f2f2f2;font:15px Arial,sans-serif;min-height:100vh}.w{max-width:820px;margin:35px auto;padding:18px}.c{background:#101417;border:1px solid #36332b;border-radius:20px;padding:30px;box-shadow:0 20px 60px #0008}.brand{color:#f5a623;letter-spacing:3px;font-size:12px;font-weight:800}h1{font-size:30px;margin:12px 0}h2{font-size:17px;color:#f5a623;margin:28px 0 13px;border-bottom:1px solid #30363a;padding-bottom:9px}.muted{color:#a8afb4;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:flex;flex-direction:column;gap:6px}.full{grid-column:1/-1}label{color:#d5d9dc;font-size:13px}input{width:100%;background:#0b0f11;border:1px solid #394047;color:#fff;padding:13px;border-radius:9px;outline:none}input:focus{border-color:#f5a623;box-shadow:0 0 0 2px #f5a62322}button{width:100%;background:#b97910;color:#080b0d;border:1px solid #f5a623;padding:15px;border-radius:10px;font-weight:800;cursor:pointer;margin-top:22px;font-size:15px}button:disabled{opacity:.65;cursor:wait}a{color:#f5a623}.m{margin:14px 0;min-height:20px}.small{font-size:12px;color:#a8afb4;line-height:1.5}.req{color:#f5a623}@media(max-width:600px){.grid{grid-template-columns:1fr}.c{padding:19px}.w{margin:12px auto}h1{font-size:25px}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#252016,#080b0d 60%);color:#f2f2f2;font:15px Arial,sans-serif;min-height:100vh}.w{max-width:820px;margin:35px auto;padding:18px}.c{background:#101417;border:1px solid #36332b;border-radius:20px;padding:30px;box-shadow:0 20px 60px #0008}.brand{color:#f5a623;letter-spacing:3px;font-size:12px;font-weight:800}h1{font-size:30px;margin:12px 0}h2{font-size:17px;color:#f5a623;margin:28px 0 13px;border-bottom:1px solid #30363a;padding-bottom:9px}.muted{color:#a8afb4;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:flex;flex-direction:column;gap:6px}.full{grid-column:1/-1}label{color:#d5d9dc;font-size:13px}input{width:100%;background:#0b0f11;border:1px solid #394047;color:#fff;padding:13px;border-radius:9px;outline:none}input:focus{border-color:#f5a623;box-shadow:0 0 0 2px #f5a62322}button{width:100%;background:#b97910;color:#080b0d;border:1px solid #f5a623;padding:15px;border-radius:10px;font-weight:800;cursor:pointer;margin-top:22px;font-size:15px}button:disabled{opacity:.65;cursor:wait}a{color:#f5a623}.m{margin:14px 0;min-height:20px}.success{display:none;text-align:center;padding:24px 8px}.success.show{display:block}.success .icon{width:72px;height:72px;margin:0 auto 18px;border:2px solid #f5a623;border-radius:50%;display:grid;place-items:center;color:#f5a623;font-size:36px;font-weight:900}.success h2{border:0;margin:8px 0;color:#f2f2f2;font-size:25px}.success p{color:#a8afb4;line-height:1.65}.success strong{color:#f2f2f2}.secondary{background:transparent;color:#f5a623;border-color:#66501f;margin-top:10px}.small{font-size:12px;color:#a8afb4;line-height:1.5}.req{color:#f5a623}@media(max-width:600px){.grid{grid-template-columns:1fr}.c{padding:19px}.w{margin:12px auto}h1{font-size:25px}}
 </style></head><body><main class="w"><section class="c"><div class="brand">PISTOL SURVIVEL · EDIÇÃO PREMIUM</div><h1>Cadastro de aluno</h1><p class="muted">Preencha seus dados para criar seu acesso à plataforma. Campos com <span class="req">*</span> são obrigatórios.</p>
 <form id="registration" onsubmit="criarConta(event)">
 <h2>Dados pessoais</h2><div class="grid">
@@ -19,10 +19,20 @@
 </div>
 <p class="small">Os dados informados serão usados para administrar seu cadastro e acesso ao curso. Não informe documentos ou informações sensíveis nos campos livres.</p>
 <button id="go" type="submit">CRIAR MINHA CONTA</button><p id="msg" class="m" role="status" aria-live="polite"></p>
-</form><a href="/login.html">Já tenho conta — entrar</a></section></main>
+</form><div id="success" class="success"><div class="icon">✓</div><div class="brand">CADASTRO RECEBIDO</div><h2>Confirme seu e-mail</h2><p>Enviamos uma mensagem de confirmação para <strong id="successEmail"></strong>.</p><p>Abra o e-mail enviado pelo <strong>PISTOL SURVIVEL</strong> e clique no botão de confirmação para ativar sua conta.</p><p class="small">Não encontrou? Confira Spam, Lixo eletrônico ou Promoções. Aguarde pelo menos 60 segundos antes de solicitar outro envio.</p><button id="resend" class="secondary" type="button" onclick="reenviarConfirmacao()">REENVIAR E-MAIL DE CONFIRMAÇÃO</button><p id="resendMsg" class="m" role="status" aria-live="polite"></p><a href="/login.html">Ir para a página de login</a></div><a id="loginLink" href="/login.html">Já tenho conta — entrar</a></section></main>
 <script>
 const s=supabase.createClient("https://scoimbbrklznkbmbncsg.supabase.co","sb_publishable_yMe73rPGgLDPTgSsaHIBeA_LTeL7bp0");
 const el=id=>document.getElementById(id);
+let pendingEmail="";
+function mensagemCadastro(error){
+ const t=(error?.message||"").toLowerCase();
+ if(t.includes("rate limit"))return "Muitas solicitações de e-mail foram feitas em pouco tempo. Aguarde alguns minutos e tente novamente.";
+ if(t.includes("already registered")||t.includes("already been registered"))return "Este e-mail já possui uma conta. Use a opção “Já tenho conta” para entrar.";
+ if(t.includes("invalid email"))return "Informe um endereço de e-mail válido.";
+ if(t.includes("password"))return "A senha não atende aos requisitos de segurança. Use pelo menos 6 caracteres.";
+ if(t.includes("sending confirmation")||t.includes("smtp"))return "Não foi possível enviar o e-mail de confirmação agora. Tente novamente em alguns minutos.";
+ return "Não foi possível concluir o cadastro. Confira os dados e tente novamente.";
+}
 async function criarConta(event){
  event.preventDefault();
  const form=el("registration"),msg=el("msg"),btn=el("go");
@@ -35,10 +45,21 @@ async function criarConta(event){
  btn.disabled=true;msg.textContent="Criando sua conta...";
  try{
   const r=await s.auth.signUp({email,password,options:{data,emailRedirectTo:"https://pistol-survivel-premium.onrender.com/login.html"}});
-  if(r.error){msg.textContent="Não foi possível concluir o cadastro: "+r.error.message;return}
-  msg.textContent=r.data.session?"Cadastro concluído! Redirecionando...":"Cadastro enviado. Confira seu e-mail para confirmar a conta, caso seja solicitado.";
-  if(r.data.session)setTimeout(()=>location.href="/",1200);
- }catch(err){msg.textContent="Erro de conexão ao criar conta. Tente novamente."}
+  if(r.error){console.error("Falha no cadastro",r.error);msg.textContent=mensagemCadastro(r.error);return}
+  if(r.data.session){msg.textContent="Cadastro concluído! Redirecionando...";setTimeout(()=>location.href="/",1200);return}
+  pendingEmail=email;el("successEmail").textContent=email;form.style.display="none";el("loginLink").style.display="none";el("success").classList.add("show");
+ }catch(err){console.error("Erro de conexão",err);msg.textContent="Erro de conexão ao criar conta. Verifique sua internet e tente novamente."}
+ finally{btn.disabled=false}
+}
+async function reenviarConfirmacao(){
+ const btn=el("resend"),msg=el("resendMsg");
+ if(!pendingEmail){msg.textContent="Informe novamente seu e-mail pelo formulário de cadastro.";return}
+ btn.disabled=true;msg.textContent="Reenviando...";
+ try{
+  const r=await s.auth.resend({type:"signup",email:pendingEmail,options:{emailRedirectTo:"https://pistol-survivel-premium.onrender.com/login.html"}});
+  if(r.error){console.error("Falha ao reenviar confirmação",r.error);msg.textContent=mensagemCadastro(r.error);return}
+  msg.textContent="Novo e-mail enviado. Confira sua caixa de entrada e spam.";
+ }catch(err){console.error("Erro ao reenviar",err);msg.textContent="Não foi possível reenviar agora. Tente novamente em alguns minutos."}
  finally{btn.disabled=false}
 }
 </script></body></html>
